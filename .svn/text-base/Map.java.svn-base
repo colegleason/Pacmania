@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+
+
+public class Map {
+	private GhostList ghosts = new GhostList();
+	private int width;
+	private int height;
+	private ArrayList<MapObject> objects;
+	
+	public Map(int width, int height){
+		this.width = width;
+		this.height = height;
+		this.objects = new ArrayList<MapObject>();
+	}
+	
+	public void addObject(MapObject obj){
+		objects.add(obj);
+		if (obj instanceof Ghost)
+			ghosts.add((Ghost) obj);
+	}
+	
+	public void deleteObject(MapObject obj){
+		for(int i = 0; i < objects.size(); i++) {
+			if (objects.get(i) == obj)
+				objects.remove(i);
+		}
+	}
+	
+	public void drawMap() {
+		Zen.setColor(0, 0, 0);
+		Zen.fillRect(0, 0, Zen.getZenWidth(), Zen.getZenHeight());
+		for(int i = 0; i < objects.size(); i++) {
+			objects.get(i).draw();
+		}
+	}
+}

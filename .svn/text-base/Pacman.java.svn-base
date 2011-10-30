@@ -1,0 +1,37 @@
+
+public class Pacman extends MapObject {
+	private int score = 0;
+	private int lives = 3;
+	private static Pacman instance = null;
+	
+	/**
+	 * Private constructor to defeat instantiation
+	 */
+	private Pacman() {
+		super.setSprite("Ultra Pacman Right.gif");	
+	}
+	
+	/**
+	 * Returns the singular Pacman instance.
+	 * @return Pacman instance.
+	 */
+	public static Pacman getInstance() {
+		if (instance == null)
+			instance = new Pacman();
+		return instance;
+	}
+	
+	public void move(int dx, int dy) {
+		int[] pos = this.getPosition();
+		int x = pos[0] + dx;
+		int y = pos[1] + dy;
+		this.setPosition(x, y);
+	}
+	
+	public void kill() {
+		this.lives--;
+		if(this.lives <= 0)
+			Game.end();
+	}
+	
+}
