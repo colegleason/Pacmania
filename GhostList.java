@@ -22,4 +22,12 @@ public class GhostList {
 		this.add(ghost);
 	}
 
+	public void moveGhosts(Map map) {
+		for (int i = 0; i < ghosts.length; i++) {
+			if (ghosts[i] != null) {
+				ghosts[i].decideMove(map);
+				ghosts[i].move(map);
+			}
+		}
+	}
 }

@@ -11,18 +11,22 @@ import java.util.ArrayList;
 public class Game {
 	private static Map map;
 	private static Pacman player;
+	private static int score;
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Zen.create(26*32, 31*32, "");
+		Zen.create(26*32, 32*32, "");
 		loadMap("Maps/1.txt");
 		player = Pacman.getInstance();
 		while(Zen.isRunning()) {
 			map.drawMap();
 			checkKeys();
 			player.move(map);
+			map.ghosts.moveGhosts(map);
 			Zen.sleep(100);
+			Zen.setColor(255, 255, 255);
+			Zen.drawText("" + score, Zen.getZenWidth()-32, Zen.getZenHeight()-32);
 			Zen.flipBuffer();
 		}
 
@@ -79,6 +83,9 @@ public class Game {
 		Zen.setColor(0, 0, 0);
 		Zen.fillRect(0, 0, Zen.getZenWidth(), Zen.getZenHeight());
 		Zen.drawText("GAME OVER", Zen.getZenWidth()/2, Zen.getZenHeight()/2);
+	}
+	public static void incrScore(int amt) {
+		score += amt;
 	}
 
 }

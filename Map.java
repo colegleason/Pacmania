@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 
 public class Map {
-	private GhostList ghosts = new GhostList();
+	public GhostList ghosts = new GhostList();
 	private int width;
 	private int height;
 	private int scale;
@@ -46,7 +46,7 @@ public class Map {
 	
 	public MapObject getTile(int row, int column) {
 		if ((row >= 0 && row < tiles.length) && (column >= 0 && column < tiles[0].length))
-			return this.tiles[row][column];
+				return this.tiles[row][column];
 		else return null;
 	}
 	
@@ -55,10 +55,17 @@ public class Map {
 			this.tiles[row][column] = obj;
 	}
 	
-	public boolean checkCollision(int row, int column) {
+	public boolean checkCollision(int row, int column, MapObject obj) {
 		MapObject tile = getTile(row, column);
-		if (tile instanceof Wall || tile == null)
+		if (tile instanceof Wall)
 			return true;
+		else if (obj instanceof Pacman && tile instanceof Pellet) {
+			this.deleteObject(tile);
+			Game.incrScore(10);
+			return false;
+		}
 		else return false;
 	}
+	
+
 }

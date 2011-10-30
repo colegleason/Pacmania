@@ -4,4 +4,5 @@ public class Pellet extends MapObject{
 		super.setSprite("Dot.gif");	
 		super.setPosition(x,y);
 	}
+	
 }
